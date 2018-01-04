@@ -61,7 +61,7 @@ def extract_name(content):
 
 def extract_items(content):
     elements = content.select('ul li')
-    pairs = [map(string.strip, x.text.split(':', 1)) for x in elements]
+    pairs = [[y.strip() for y in x.text.split(':', 1)] for x in elements]
     return dict(pairs)
 
 
@@ -105,7 +105,7 @@ def main():
         sys.exit(255)
 
     if args.output:
-        with open(args.output, 'wb') as f:
+        with open(args.output, 'w') as f:
             dump(data, f)
     else:
         dump(data, sys.stdout)
